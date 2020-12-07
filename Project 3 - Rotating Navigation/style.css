@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+:root {
+    --main-background: #333;
+    --main-font-color: #222;
+    --content-background: #fafafa;
+    --circle-background: #ff7979;
+    --button-color: #fff;
+    --author-color: #555;
+    --text-font-color: #333;
+    --nav-font-color: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+    background: var(--main-background);
+    margin: 0;
+}
+
+.container {
+    max-width: 100vw;
+    background: var(--content-background);
+    font: var(--main-font-color);
+    padding: 50px;
+    transform-origin: top left;
+    transition: transform 0.5s linear;
+}
+
+.container.show-nav {
+    transform: rotate(-20deg);
+}
+
+.circle-container {
+    position: fixed;
+    top: -100px;
+    left: -100px;
+}
+
+.circle {
+    height: 200px;
+    width: 200px;
+    background: var(--circle-background);
+    border-radius: 50%;
+}
+
+.container.show-nav .circle {
+    transform: rotate(-70deg);
+}
+
+.circle button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100px;
+    background: transparent;
+    color: var(--button-color);
+    border: 0;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.circle button:focus {
+    outline: none;
+}
+
+.circle button#open {
+    left: 60%;
+}
+
+.circle button#close {
+    top: 60%;
+    transform: rotate(90deg);
+    transform-origin: top left;
+}
+
+.container.show-nav + nav li {
+    transform: translateX(0);
+    transition-delay: 0.3s;
+}
+
+nav {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+nav ul li {
+    color: var(--nav-font-color);
+    text-transform: uppercase;
+    margin: 40px 0; 
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in;
+}
+
+nav ul li i{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+nav ul li + li {
+    margin-left: 15px;
+    transform: translateX(-150%);
+}
+
+nav ul li + li + li {
+    margin-left: 30px;
+    transform: translateX(-200%);
+}
+
+
+
+.content {
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+
+.content h1 {
+    margin: 0;
+}
+
+.content small {
+    color: var(--author-color);
+    font-style: italic;
+}
+
+.content p {
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.content img {
+    max-width: 100%;
+}
