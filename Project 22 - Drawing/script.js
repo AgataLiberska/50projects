@@ -30,6 +30,10 @@ function drawLine(x1, y1, x2, y2) {
     ctx.stroke();
 }
 
+function updateSizeOnScreen() {
+    sizeEl.innerText = size;
+}
+
 canvas.addEventListener('mousedown', e => {
     isPressed = true;
     // get the position of the mouse
@@ -59,4 +63,24 @@ canvas.addEventListener('mousemove', e => {
 
 colorEl.addEventListener('change', e => {
     color = e.target.value;
+})
+
+increaseBtn.addEventListener('click', e => {
+    size += 5;
+
+    if (size > 50) {
+        size = 50;
+    }
+
+    updateSizeOnScreen();
+})
+
+decreaseBtn.addEventListener('click', () => {
+    size -= 5;
+
+    if (size < 5) {
+        size = 5;
+    }
+
+    updateSizeOnScreen();
 })
