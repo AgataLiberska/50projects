@@ -9,11 +9,22 @@ async function getUser(username) {
         const { data } = await axios(APIURL + username);
     
         createUserCard(data);
+        getRepos(username);
 
     } catch(err) {
         if (err.response.status == 404) {
             createErrorCard('No profile with this username');
         }
+    }
+}
+
+async function getRepos(username) {
+    try {
+        const {data} = await axios(APIURL + username  + '/repos?sort=created') ;
+
+        addReposToCard(data);
+    } catch(err) {
+        createErrorCard('Problem fetching repos');
     }
 }
 
@@ -32,11 +43,7 @@ function createUserCard(user) {
                     <li>${user.public_repos} <strong>repos</strong></li>
                 </ul>
                 <div id="repos">
-                    <a href="" class="repo">Repo1</a>
-                    <a href="" class="repo">Repo2</a>
-                    <a href="" class="repo">Repo3</a>
-                    <a href="" class="repo">Repo4</a>
-                    <a href="" class="repo">Repo5</a>
+
                 </div>
             </div>
         </div>
@@ -54,6 +61,22 @@ function createErrorCard(msg)  {
     `
 
     main.innerHTML = cardHTML;
+}
+
+function addReposToCard(repos) {
+    const reposEl = document.getElementById('repos');
+
+    repos
+        .slice(0,10)
+        .forEach(repo => {
+            const repoLink = document.createElement('a');
+            repoLink.classList.add('repo');
+            repoLink.href = repo.html_url;
+            repoLink.target = '_blank';
+            repoLink.innerText = repo.name;
+
+            reposEl.appendChild(repoLink);
+    })
 }
 
 form.addEventListener('submit', (e) => {
